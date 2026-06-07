@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطاقات التنشئة الاجتماعية 🌱</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FFB3C6;
+    --lavender: #C9B8FF;
+    --mint: #B5EAD7;
+    --peach: #FFDAC1;
+    --sky: #B5D5FF;
+    --yellow: #FFEAA7;
+    --coral: #FF9AA2;
+    --purple-soft: #E2C7FF;
+    --bg: #FFF8F5;
+    --text-dark: #3D2C4E;
+    --text-mid: #6B5B7E;
+    --shadow: 0 8px 32px rgba(100,60,120,0.13);
+    --card-radius: 24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 10% 20%, #FFE4EC 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, #E8E0FF 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, #E0F5FF 0%, transparent 60%);
+    min-height: 100vh;
+    color: var(--text-dark);
+    padding: 20px 16px 60px;
+  }
+
+  /* ========= HEADER ========= */
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+    animation: fadeDown 0.7s ease;
+  }
+
+  .header h1 {
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    font-weight: 900;
+    color: var(--text-dark);
+    line-height: 1.3;
+  }
+
+  .header h1 span {
+    background: linear-gradient(135deg, #C084FC, #F472B6, #FB923C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header p {
+    margin-top: 6px;
+    font-size: 1rem;
+    color: var(--text-mid);
+  }
+
+  /* ========= STATS BAR ========= */
+  .stats-bar {
+    background: white;
+    border-radius: 20px;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 700px;
+    margin: 0 auto 32px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-mid);
+    font-weight: 500;
+  }
+
+  .stat-divider {
+    width: 2px;
+    height: 40px;
+    background: #EEE;
+    border-radius: 2px;
+  }
+
+  .progress-section {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+  }
+
+  .progress-bar {
+    height: 14px;
+    background: #F0EAF8;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #C084FC, #F472B6);
+    border-radius: 99px;
+    transition: width 0.6s cubic-bezier(.4,2,.6,1);
+    width: 0%;
+  }
+
+  /* ========= FILTER BUTTONS ========= */
+  .filters {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .filter-btn {
+    padding: 8px 20px;
+    border-radius: 99px;
+    border: 2.5px solid transparent;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+    color: var(--text-mid);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--text-dark);
+    color: white;
+    border-color: var(--text-dark);
+    transform: translateY(-2px);
+  }
+
+  .filter-btn.review.active { background: #FB923C; border-color: #FB923C; }
+  .filter-btn.done.active { background: #22C55E; border-color: #22C55E; }
+
+  /* ========= CARDS GRID ========= */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ========= CARD ========= */
+  .card-wrapper {
+    perspective: 1200px;
+    height: 280px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .card-wrapper:nth-child(1) { animation-delay: 0.05s; }
+  .card-wrapper:nth-child(2) { animation-delay: 0.10s; }
+  .card-wrapper:nth-child(3) { animation-delay: 0.15s; }
+  .card-wrapper:nth-child(4) { animation-delay: 0.20s; }
+  .card-wrapper:nth-child(5) { animation-delay: 0.25s; }
+  .card-wrapper:nth-child(6) { animation-delay: 0.30s; }
+  .card-wrapper:nth-child(7) { animation-delay: 0.35s; }
+  .card-wrapper:nth-child(8) { animation-delay: 0.40s; }
+  .card-wrapper:nth-child(9) { animation-delay: 0.45s; }
+  .card-wrapper:nth-child(10) { animation-delay: 0.50s; }
+  .card-wrapper:nth-child(11) { animation-delay: 0.55s; }
+  .card-wrapper:nth-child(12) { animation-delay: 0.60s; }
+  .card-wrapper:nth-child(13) { animation-delay: 0.65s; }
+
+  .card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(.4,.2,.2,1);
+    cursor: pointer;
+  }
+
+  .card-inner.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-front, .card-back {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--card-radius);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    padding: 22px 22px 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .card-front {
+    background: white;
+    justify-content: space-between;
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+    background: white;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  /* Colored top strip */
+  .card-front::before, .card-back::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    border-radius: var(--card-radius) var(--card-radius) 0 0;
+  }
+
+  .card-color-0 .card-front::before, .card-color-0 .card-back::before { background: linear-gradient(90deg, #FFB3C6, #FF9AA2); }
+  .card-color-1 .card-front::before, .card-color-1 .card-back::before { background: linear-gradient(90deg, #C9B8FF, #A78BFA); }
+  .card-color-2 .card-front::before, .card-color-2 .card-back::before { background: linear-gradient(90deg, #B5EAD7, #6EE7B7); }
+  .card-color-3 .card-front::before, .card-color-3 .card-back::before { background: linear-gradient(90deg, #FFDAC1, #FCA5A5); }
+  .card-color-4 .card-front::before, .card-color-4 .card-back::before { background: linear-gradient(90deg, #B5D5FF, #93C5FD); }
+  .card-color-5 .card-front::before, .card-color-5 .card-back::before { background: linear-gradient(90deg, #FFEAA7, #FCD34D); }
+  .card-color-6 .card-front::before, .card-color-6 .card-back::before { background: linear-gradient(90deg, #E2C7FF, #D8B4FE); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .card-emoji {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .card-number {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #C4B5D8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .card-question {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.55;
+    margin-top: 2px;
+    flex: 1;
+  }
+
+  .flip-hint {
+    text-align: center;
+    font-size: 0.72rem;
+    color: #C4B5D8;
+    font-weight: 600;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  /* Back content */
+  .back-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #C4B5D8;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    margin-top: 8px;
+  }
+
+  .card-answer {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1.7;
+    white-space: pre-line;
+    flex: 1;
+  }
+
+  /* ========= ACTION BUTTONS ========= */
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    z-index: 10;
+  }
+
+  .action-btn {
+    flex: 1;
+    padding: 9px 10px;
+    border-radius: 12px;
+    border: none;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .btn-done {
+    background: #DCFCE7;
+    color: #166534;
+  }
+
+  .btn-done:hover, .btn-done.active {
+    background: #22C55E;
+    color: white;
+    transform: scale(1.04);
+  }
+
+  .btn-review {
+    background: #FEF3C7;
+    color: #92400E;
+  }
+
+  .btn-review:hover, .btn-review.active {
+    background: #F59E0B;
+    color: white;
+    transform: scale(1.04);
+  }
+
+  /* ========= STATUS BADGE ========= */
+  .status-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 99px;
+    z-index: 5;
+  }
+
+  .badge-done { background: #22C55E; color: white; }
+  .badge-review { background: #F59E0B; color: white; }
+
+  /* ========= CONFETTI ========= */
+  .confetti-container {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    animation: confettiFall 1.4s ease-in forwards;
+  }
+
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ========= EMPTY STATE ========= */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-mid);
+    display: none;
+    grid-column: 1 / -1;
+  }
+
+  .empty-state .emoji { font-size: 4rem; }
+  .empty-state p { margin-top: 12px; font-size: 1rem; font-weight: 600; }
+
+  /* ========= ANIMATIONS ========= */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========= SCROLLBAR ========= */
+  .card-back::-webkit-scrollbar { width: 4px; }
+  .card-back::-webkit-scrollbar-track { background: transparent; }
+  .card-back::-webkit-scrollbar-thumb { background: #DDD; border-radius: 4px; }
+
+  /* ========= RESPONSIVE ========= */
+  @media (max-width: 480px) {
+    .card-wrapper { height: 300px; }
+    .stats-bar { padding: 14px 16px; gap: 10px; }
+    .stat-number { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🌱 بطاقات <span>التنشئة الاجتماعية</span></h1>
+  <p>اضغط على البطاقة لرؤية الإجابة ✨</p>
+</div>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-number" id="done-count" style="color:#22C55E">0</div>
+    <div class="stat-label">✅ محفوظة</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-number" id="review-count" style="color:#F59E0B">0</div>
+    <div class="stat-label">🔄 تحتاج مراجعة</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="progress-section">
+    <div class="progress-label">
+      <span>التقدم</span>
+      <span id="progress-text">0 / 13</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCards('all', this)">📚 الكل</button>
+  <button class="filter-btn done" onclick="filterCards('done', this)">✅ المحفوظة</button>
+  <button class="filter-btn review" onclick="filterCards('review', this)">🔄 تحتاج مراجعة</button>
+  <button class="filter-btn" onclick="filterCards('unseen', this)">🆕 لم تُراجع</button>
+</div>
+
+<!-- Cards Grid -->
+<div class="cards-grid" id="cards-grid"></div>
+
+<!-- Confetti Container -->
+<div class="confetti-container" id="confetti-container"></div>
+
+<script>
+// =============================================
+// ============ بيانات الأسئلة ================
+// =============================================
+const cards = [
+  {
+    emoji: "📖",
+    question: "ما هو تعريف التنشئة الاجتماعية؟",
+    answer: `عملية يتم فيها تشكيل السلوك الإنساني بتكوين المعايير والقيم والمهارات والاتجاهات للأفراد؛ لتتسق مع دورهم الاجتماعي.
+
+• تشمل كل الأساليب التي يتلقاها الفرد من الأسرة لبناء شخصية متوافقة جسمياً واجتماعياً ونفسياً.
+• هي عملية نمو مستمرة تبدأ من اللحظات الأولى وتستمر حتى الشيخوخة.`
+  },
+  {
+    emoji: "🔑",
+    question: "اذكر خصائص التنشئة الاجتماعية:",
+    answer: `1. عملية تعلم اجتماعية: تعلم العادات والقيم والمهارات.
+2. عملية نمو: تتغير بتغير العصر والزمان.
+3. عملية مستمرة: من الطفولة المبكرة عبر مراحل النمو.
+4. عملية تربوية: ضبط السلوك والتحكم في الانفعالات.
+5. عملية ديناميكية: تفاعل الطفل مع أفراد الجماعة (أخذ وعطاء).`
+  },
+  {
+    emoji: "🧠",
+    question: "اذكر نظريات تفسير التنشئة الاجتماعية:",
+    answer: `1. نظرية التحليل النفسي (فرويد): ثلاث منظمات:
+   • الهو (Id): إشباع اللذة فوراً
+   • الأنا (Ego): تحقيق الرغبات في حدود الواقع
+   • الأنا الأعلى (Super Ego): الضمير ومعايير السلوك
+
+2. نظريات التعلم الاجتماعي: ثلاثة اتجاهات:
+   • ربط المثير بالاستجابة (ثواب وعقاب)
+   • السلوك المثاب يُكرر، وغير المثاب يختفي
+   • التعلم بالتقليد والمحاكاة
+
+3. نظرية الدور الاجتماعي: لكل فرد مكانة ودور اجتماعي يكتسبه عبر التفاعل.`
+  },
+  {
+    emoji: "👦",
+    question: "اذكر المقومات التي يمتلكها الأطفال من سن (3-6):",
+    answer: `1. النمو العقلي والمعرفي: مرحلة "ما قبل العمليات".
+2. النمو الجسمي الفسيولوجي: تغير الطول والوزن، ميل للنحافة.
+3. النمو الوجداني: مرحلة عدم توازن، انفعالات حادة، غيرة ومخاوف.
+4. النمو الحسي حركي: إدراك "الكل قبل الأجزاء".
+5. النمو الحركي: مهارات يدوية (مقص، صلصال) وساقين (جري، قفز).
+6. النمو اللغوي: اللغة أداة للتفكير، "كلام ذاتي".
+7. النمو الاجتماعي: تحول إلى كائن اجتماعي قادر على تكوين علاقات.`
+  },
+  {
+    emoji: "🏠",
+    question: "عرّف الأسرة مبيناً أهميتها كبناء اجتماعي ونواة للمجتمع:",
+    answer: `الأسرة: جماعة متماسكة ومترابطة من الأفراد تربطهم صلات قوية تمكنهم من تحقيق أهدافهم المشتركة.
+
+أهميتها:
+• البناء الأساسي للمجتمع وجزء لا يتجزأ من أهدافه الكبرى.
+• النواة التي يقوم عليها المجتمع بأكمله.`
+  },
+  {
+    emoji: "👨‍👩‍👧‍👦",
+    question: "اذكر أنواع الأسر:",
+    answer: `أولاً - حسب عدد الأفراد:
+• أسرة بسيطة: أب + أم + أبناء (تنتشر في المجتمعات الصناعية)
+• أسرة مركبة:
+  - ممتدة: تشمل الأجداد والأقارب (تنتشر في الريف)
+  - مزواج: رجل مع أكثر من زوجة (تنتشر في الريف)
+
+ثانياً - حسب طبيعة التكوين:
+• أسرة طبيعية: قائمة على الزواج الشرعي والإنجاب
+• أسرة بديلة: مؤسسات رعاية للأطفال المنفصلين عن أسرهم`
+  },
+  {
+    emoji: "💍",
+    question: "اذكر تكوين الأسرة:",
+    answer: `1. أنظمة الزواج:
+• زواج واحد: رجل وامرأة (الأكثر انتشاراً، أقوى روابط)
+• زواج متعدد:
+  - تعدد الزوجات: رجل وأكثر من امرأة
+  - تعدد الأزواج: امرأة وأكثر من رجل (نادر جداً)
+
+2. موانع الزواج (المحارم):
+قاعدة عالمية تمنع الزواج بين الأقارب من الأصول والفروع (والدين، أبناء، إخوة) لحماية البناء الاجتماعي.`
+  },
+  {
+    emoji: "💑",
+    question: "اذكر طرق اختيار شريك الحياة:",
+    answer: `1. اختيار الوالدين أو الأقارب
+2. الزواج من ابنة العم أو الخال (قرابة محدودة)
+3. خاطب أو خاطبة
+4. الشخص الراغب في الزواج
+5. طريقة خطف العروس
+6. طريقة الميراث (الزواج من أرملة الأخ)
+7. طريقة التبني (يتزوج الولد المتبنى من بنت الأسرة)
+8. طريقة الهروب`
+  },
+  {
+    emoji: "⚙️",
+    question: "اذكر وظائف الأسرة:",
+    answer: `الوظائف الأساسية (المنظور الحديث):
+• بيولوجية: الإنجاب للحفاظ على النوع
+• نفسية: جو آمن، حب، ثقة، اكتساب اتجاهات
+• اجتماعية: تنشئة، نقل التراث، دمج الفرد
+• اقتصادية: رعاية مالية، تعويد على الاستقلالية
+
+الوظائف التقليدية:
+• اقتصادية: تحولت من وحدة إنتاجية إلى استهلاكية
+• منح المكانة، تعليمية، حماية، دينية، ترفيهية`
+  },
+  {
+    emoji: "💞",
+    question: "اذكر أثر العلاقات الأسرية على تنمية شخصية الطفل:",
+    answer: `1. العلاقة بين الوالدين:
+   • مستقرة ← طفل متزن نفسياً
+   • مضطربة ← طفل قلق وعدواني
+
+2. أسلوب الرفض ← وحدة، عدائية، فقدان ثقة
+3. الحماية الزائدة (تدليل) ← أناني، غير مسؤول
+4. الحماية الزائدة (تسلط) ← إحساس بالفشل والذنب
+5. المغالاة في المستويات الخلقية ← عدوانية واتهام الذات
+6. فرض النظم الجامدة ← تردد، عجز عن القرار
+7. التضارب في التربية ← عزلة وفقدان القدوة
+8. الطالق ← عدم الأمان، حيل نفسية عصابية
+9. الوالدان العصبيان ← خوف واضطراب دائم`
+  },
+  {
+    emoji: "👩‍🍼",
+    question: "اذكر أثر علاقة الأم بالطفل:",
+    answer: `1. بناء الثقة والأمان: الاستجابة الصحيحة تبني الثقة، والإهمال يولد النفور.
+2. التأثير المتبادل: علاقة ثنائية الاتجاه (ابتسامة الطفل وبكاؤه يحفزان الأم).
+3. التطور العقلي والسلوكي: التفاعل (اللعب) ينمي المعرفة والتركيز.
+4. الاستقلال مقابل الحماية الزائدة: التدريب على الاعتماد على النفس مهم.
+5. أثر البرودة العاطفية: نقص الحنان ← قلق، اضطرابات، سلوك عدواني.`
+  },
+  {
+    emoji: "👨‍👦",
+    question: "اذكر أثر علاقة الأب بالطفل:",
+    answer: `1. السلطة: الأب المصدر الأساسي للضبط السلوكي والتوجيه.
+2. الوقت: جودة الوقت أهم من مدته في التأثير على الطفل.
+3. القدوة: الأب الموجه الأول لاكتساب المهارات المهنية والتعليمية.
+4. الجانب النفسي: غياب الحنان الأبوي ← عدوانية وأنانية.
+5. الأمان: التفاعل السوي مع الأب ← ثقة بالنفس وقدرة على الاستكشاف.`
+  },
+  {
+    emoji: "🏡",
+    question: "اذكر نظام الرعاية البديلة:",
+    answer: `المفهوم: رعاية الأطفال المنفصلين عن أهاليهم (مؤسسات أو أسر بديلة).
+
+نماذج المؤسسات: الملاجئ، دور الأيتام، دور الأحداث.
+
+مشروع "الأسر المضيفة":
+بديل أسري أفضل من المؤسسات، يدعم الأم العاملة.
+
+شروط الأسرة المضيفة:
+• استعداد ربة الأسرة
+• مسكن ملائم ونظيف
+• سلامة أفراد الأسرة (صحياً وأخلاقياً)
+• لا يتجاوز 3 أطفال في سن ما قبل المدرسة
+
+القاعدة النفسية: "الرعاية الوجدانية في أسرة (ولو بديلة) أفضل من أفضل مؤسسة رعاية".`
+  }
+];
+
+// =============================================
+// ============ المنطق البرمجي =================
+// =============================================
+const colors = ['card-color-0','card-color-1','card-color-2','card-color-3','card-color-4','card-color-5','card-color-6'];
+let cardStates = {};
+let currentFilter = 'all';
+
+function initStates() {
+  const saved = localStorage.getItem('social_card_states');
+  if (saved) cardStates = JSON.parse(saved);
+  else cards.forEach((_, i) => cardStates[i] = 'unseen');
+}
+
+function saveStates() {
+  localStorage.setItem('social_card_states', JSON.stringify(cardStates));
+}
+
+function updateStats() {
+  const done = Object.values(cardStates).filter(s => s === 'done').length;
+  const review = Object.values(cardStates).filter(s => s === 'review').length;
+  const total = cards.length;
+
+  document.getElementById('done-count').textContent = done;
+  document.getElementById('review-count').textContent = review;
+  document.getElementById('progress-text').textContent = `${done} / ${total}`;
+  document.getElementById('progress-fill').style.width = `${(done / total) * 100}%`;
+}
+
+function createCard(index) {
+  const card = cards[index];
+  const state = cardStates[index] || 'unseen';
+  const colorClass = colors[index % colors.length];
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'card-wrapper';
+  wrapper.dataset.index = index;
+  wrapper.dataset.state = state;
+
+  const badge = state !== 'unseen'
+    ? `<div class="status-badge ${state === 'done' ? 'badge-done' : 'badge-review'}">${state === 'done' ? '✅ محفوظة' : '🔄 مراجعة'}</div>`
+    : '';
+
+  wrapper.innerHTML = `
+    <div class="card-inner ${colorClass}" id="inner-${index}">
+      <div class="card-front">
+        ${badge}
+        <div class="card-header">
+          <div class="card-emoji">${card.emoji}</div>
+          <div>
+            <div class="card-number">سؤال ${index + 1}</div>
+            <div class="card-question">${card.question}</div>
+          </div>
+        </div>
+        <div class="flip-hint">👆 اضغط لرؤية الإجابة</div>
+      </div>
+      <div class="card-back">
+        <div class="back-title">✏️ الإجابة</div>
+        <div class="card-answer">${card.answer}</div>
+        <div class="card-actions" onclick="event.stopPropagation()">
+          <button class="action-btn btn-done ${state === 'done' ? 'active' : ''}" onclick="setStatus(${index}, 'done', this)">
+            ✅ تم الحفظ
+          </button>
+          <button class="action-btn btn-review ${state === 'review' ? 'active' : ''}" onclick="setStatus(${index}, 'review', this)">
+            🔄 يحتاج مراجعة
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  wrapper.querySelector('.card-inner').addEventListener('click', function(e) {
+    if (e.target.classList.contains('action-btn')) return;
+    this.classList.toggle('flipped');
+  });
+
+  return wrapper;
+}
+
+function renderCards() {
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = '';
+
+  let shown = 0;
+  cards.forEach((_, i) => {
+    const state = cardStates[i] || 'unseen';
+    if (currentFilter === 'all' || currentFilter === state) {
+      grid.appendChild(createCard(i));
+      shown++;
+    }
+  });
+
+  if (shown === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.style.display = 'block';
+    empty.innerHTML = `<div class="emoji">🔍</div><p>لا توجد بطاقات في هذه الفئة حالياً</p>`;
+    grid.appendChild(empty);
+  }
+
+  updateStats();
+}
+
+function setStatus(index, status, btn) {
+  cardStates[index] = status;
+  saveStates();
+  updateStats();
+
+  if (status === 'done') launchConfetti(btn);
+
+  // Update buttons
+  const inner = document.getElementById(`inner-${index}`);
+  const btns = inner.querySelectorAll('.action-btn');
+  btns.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Update badge
+  const front = inner.querySelector('.card-front');
+  let badge = front.querySelector('.status-badge');
+  if (!badge) {
+    badge = document.createElement('div');
+    front.insertBefore(badge, front.firstChild);
+  }
+  badge.className = `status-badge ${status === 'done' ? 'badge-done' : 'badge-review'}`;
+  badge.textContent = status === 'done' ? '✅ محفوظة' : '🔄 مراجعة';
+
+  // Update wrapper state
+  const wrapper = inner.closest('.card-wrapper');
+  wrapper.dataset.state = status;
+
+  // If filtered, re-render after a short delay
+  if (currentFilter !== 'all') {
+    setTimeout(() => renderCards(), 600);
+  }
+}
+
+function filterCards(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+// ========= CONFETTI =========
+function launchConfetti(fromEl) {
+  const container = document.getElementById('confetti-container');
+  const colors = ['#FF9AA2','#FFB347','#FFD700','#A8E6CF','#DDA0DD','#87CEEB','#FFC0CB'];
+
+  const rect = fromEl.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+
+  for (let i = 0; i < 40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.left = (cx + (Math.random() - 0.5) * 200) + 'px';
+    piece.style.top = cy + 'px';
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (6 + Math.random() * 8) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (0.8 + Math.random() * 0.8) + 's';
+    piece.style.animationDelay = (Math.random() * 0.3) + 's';
+    container.appendChild(piece);
+    setTimeout(() => piece.remove(), 2000);
+  }
+}
+
+// ========= INIT =========
+initStates();
+renderCards();
+</script>
+
+</body>
+</html>
